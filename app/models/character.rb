@@ -3,11 +3,15 @@
 class Character < ActiveRecord::Base
   # Validations
   validate :balanced?
+  validates :name, presence: true
   %i(health defense strength focus speed charisma).each do |stat|
     validates stat, numericality: { greater_than: -1, less_than: 201 }
   end
+  %i(arms legs).each do |limb|
+    validates limb, numericality: { greater_than: -1 }
+  end
 
-  # Methodes
+  # Methods
   def balanced?
     return unless balance > 200 || balance < 175
     errors.add :balance, I18n.t('character.validate.balance')

@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/migrate/*'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'config/**/*'
+    - 'spec/*_helper.rb'
+    - 'test/*_helper.rb'
+    - 'Vagrantfile'
+Metrics/MethodLength:
+  Max: 15
+Documentation:
+  Enabled: false

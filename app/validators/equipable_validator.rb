@@ -3,7 +3,8 @@
 class EquipableValidator < ActiveModel::EachValidator
   def validate_each(record, _attribute, value)
     return unless too_many_arms_weapon? value.free_limbs, record.weapon
-    record.errors[:weapon_quantity] << 'Too many weapons'
+    translate = I18n.t('character.validate.no_free_limbs_left')
+    record.errors[:weapon_quantity] << translate
   end
 
   private

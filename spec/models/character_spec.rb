@@ -27,6 +27,41 @@ RSpec.describe Character do
 
       expect(character).to_not be_valid
     end
+
+    it 'should not be valid without a name' do
+      character = FactoryGirl.build :character, name: nil
+
+      expect(character).to_not be_valid
+    end
+  end
+
+  describe 'Relations' do
+    describe 'weapon' do
+      it 'may have many weapons' do
+        character = FactoryGirl.create :character
+        w1 = FactoryGirl.create :weapon, legs: 2
+        w2 = FactoryGirl.create :weapon, legs: 2
+        character.weapons = [w1, w2]
+
+        expect(Character.find(character.id).weapons).to eq [w1, w2]
+      end
+
+      it 'should be valid with free limbs left' do
+        character = FactoryGirl.create :character
+        weapon = FactoryGirl.build :weapon
+        character.weapons << weapon
+
+        expect(character).to be_valid
+      end
+
+      it 'should not be valid without free limbs left' do
+        character = FactoryGirl.create :character
+        weapon = FactoryGirl.build :weapon, arms: 1
+
+        expect { character.weapons << weapon }
+          .to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   describe 'Methods' do
@@ -91,6 +126,22 @@ RSpec.describe Character do
             expect(character.send(stat)).to(satisfy { |v| v >= 0 })
           end
         end
+      end
+    end
+
+    describe '#free_limbs' do
+      it 'should calculate free arms and free legs without weapon' do
+        character = FactoryGirl.create :character
+
+        expect(character.free_limbs).to eq(arms: 0, legs: 4)
+      end
+
+      it 'should calculate free arms and free legs with weapons' do
+        character = FactoryGirl.create :character
+        weapon = FactoryGirl.create :weapon
+        character.weapons << weapon
+
+        expect(character.free_limbs).to eq(arms: 0, legs: 0)
       end
     end
   end

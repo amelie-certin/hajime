@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 class Character < ActiveRecord::Base
+  # Relations
+  has_many :characters_weapons
+  has_many :weapons, through: :characters_weapons
+
   # Validations
   validate :balanced?
   validates :name, presence: true
+
   %i(health defense strength focus speed charisma).each do |stat|
-    validates stat, numericality: { greater_than: -1, less_than: 201 }
+    validates stat, numericality: { greater_than_or_equal_to: 0,
+                                    less_than_or_equal_to: 200 }
   end
+
   %i(arms legs).each do |limb|
-    validates limb, numericality: { greater_than: -1 }
+    validates limb, numericality: { greater_than_or_equal_to: 0 }
   end
 
   # Methods
@@ -29,5 +36,10 @@ class Character < ActiveRecord::Base
       value -= random
     end
     self.charisma = value
+  end
+
+  def free_limbs
+    { arms: arms - weapons.map(&:arms).sum,
+      legs: legs - weapons.map(&:legs).sum }
   end
 end

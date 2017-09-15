@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914090916) do
+ActiveRecord::Schema.define(version: 20170914151556) do
 
   create_table "characters", force: :cascade do |t|
     t.string "name"
@@ -26,6 +26,21 @@ ActiveRecord::Schema.define(version: 20170914090916) do
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
+  end
+
+  create_table "characters_weapons", force: :cascade do |t|
+    t.integer "weapon_id"
+    t.integer "character_id"
+    t.index ["character_id"], name: "index_characters_weapons_on_character_id"
+    t.index ["weapon_id"], name: "index_characters_weapons_on_weapon_id"
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "arms"
+    t.integer "legs"
+    t.integer "focus"
+    t.integer "power"
   end
 
 end

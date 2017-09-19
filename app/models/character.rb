@@ -8,6 +8,7 @@ class Character < ActiveRecord::Base
   # Validations
   validate :balanced?
   validates :name, presence: true
+  validates :strength, balancable: true
 
   %i(health defense strength focus speed charisma).each do |stat|
     validates stat, numericality: { greater_than_or_equal_to: 0,
@@ -19,9 +20,12 @@ class Character < ActiveRecord::Base
   end
 
   # Methods
+  def fights
+    Fight.where 'player_id = ? OR opponent_id = ?', id, id
+  end
+
   def balanced?
-    return unless balance > 200 || balance < 175
-    errors.add :balance, I18n.t('character.validate.balance')
+    balance > 200 || balance < 175 ? false : true
   end
 
   def balance

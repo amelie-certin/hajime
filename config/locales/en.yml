@@ -3,3 +3,4 @@ en:
     validate:
       balance: "Your character does not meet the required criteria. Scour the tatamis is a pain in the neck..."
       no_free_limbs_left: "Your character has not enough arms or legs to equip this weapon"
+      same_character: "Your character can't fight against himself!"

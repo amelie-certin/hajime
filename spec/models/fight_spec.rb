@@ -4,18 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Fight do
   describe 'Validations' do
-    it 'should be valid with a winner' do
-      fight = FactoryGirl.build :fight, winner: :player
-
-      expect(fight).to be_valid
-    end
-
-    it 'should not be valid with a winner' do
-      fight = FactoryGirl.build :fight, winner: nil
-
-      expect(fight).to_not be_valid
-    end
-
     it 'should not be valid without a player' do
       fight = FactoryGirl.build :fight, player: nil
 

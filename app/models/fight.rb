@@ -9,6 +9,15 @@ class Fight < ActiveRecord::Base
   enum winner: %i(player opponent draw)
 
   # Validations
-  validates :winner, presence: true
   validates :player, fightable: true
+
+  # Callbacks
+  before_create :hajime!
+
+  # Methods
+  def hajime!
+    battle = Battle.new player, opponent
+    survivor = battle.run
+    self.winner = survivor.id == player.id ? :player : :opponent
+  end
 end

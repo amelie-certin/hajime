@@ -6,7 +6,6 @@ class Character < ActiveRecord::Base
   has_many :weapons, through: :characters_weapons
 
   # Validations
-  validate :balanced?
   validates :name, presence: true
   validates :strength, balancable: true
 
@@ -25,7 +24,7 @@ class Character < ActiveRecord::Base
   end
 
   def balanced?
-    balance > 200 || balance < 175 ? false : true
+    balance <= 200 && balance >= 175
   end
 
   def balance
@@ -45,5 +44,34 @@ class Character < ActiveRecord::Base
   def free_limbs
     { arms: arms - weapons.map(&:arms).sum,
       legs: legs - weapons.map(&:legs).sum }
+  end
+
+  def limbs
+    arms + legs
+  end
+
+  def ko?
+    health.zero?
+  end
+
+  def hitted(damage)
+    damage = (damage - defense).positive? ? (damage - defense).to_i : 5
+    self.health -= damage < self.health ? damage : self.health
+  end
+
+  def critical_hit
+    punch + 10
+  end
+
+  def punch
+    weapon_power + strength
+  end
+
+  def weapon_power
+    weapons.map(&:power).sum
+  end
+
+  def weapon_focus
+    weapons.map(&:focus).sum
   end
 end

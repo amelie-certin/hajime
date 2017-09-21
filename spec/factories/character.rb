@@ -11,5 +11,6 @@ FactoryGirl.define do
     charisma 36
     legs 4
     arms 0
+    avatar { File.open('app/assets/images/Doggo.jpg') }
   end
 end

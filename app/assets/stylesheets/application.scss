@@ -1,0 +1,20 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.right-align {
+  text-align: right;
+}
+
+.row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.weapon {
+  border: 1px #757575 solid;
+  padding-left: 40px;
+  margin-top: 25px;
+  h2 {
+    margin-top: 0px;
+  }
+}

@@ -7,6 +7,7 @@ class Character < ActiveRecord::Base
 
   # Validations
   validates :name, presence: true
+  validates :avatar, presence: true
   validates :strength, balancable: true
 
   %i(health defense strength focus speed charisma).each do |stat|
@@ -17,6 +18,10 @@ class Character < ActiveRecord::Base
   %i(arms legs).each do |limb|
     validates limb, numericality: { greater_than_or_equal_to: 0 }
   end
+
+  # Paperclip
+  has_attached_file :avatar, styles: { medium: '300x300#', thumb: '100x100#' }
+  validates_attachment_content_type :avatar, content_type: %r{image\/.*}
 
   # Methods
   def fights

@@ -16,10 +16,13 @@ gem 'sqlite3'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Assets
+gem 'bootstrap-sass', '~> 3.3'
 gem 'coffee-rails', '~> 4.2'
+gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+
 # gem 'therubyracer', platforms: :ruby
 
 # Attachments

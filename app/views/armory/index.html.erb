@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <%= select :character, :id, @characters, remote: true %>
+      <%= link_to 'Change', character_path(@characters.first[1]), remote: true, class: 'btn btn-info', id: 'change_character' %>
+      <div id="equipment_form">
+        <%= render 'character/equipment_form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#character_id').change(function () {
+    let value = $('#character_id').find(":selected").val()
+    $('#change_character').attr('href', '/character/' + value)
+  })
+</script>

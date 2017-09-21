@@ -11,4 +11,5 @@ Rails.application.routes.draw do
       post 'equip'
     end
   end
+  resources :fight, only: %i(create)
 end

@@ -6,7 +6,7 @@ class Fight < ActiveRecord::Base
   belongs_to :opponent, class_name: :Character, foreign_key: :opponent_id
 
   # Enum
-  enum winner: %i(player opponent draw)
+  enum winner: %i(player opponent)
 
   # Validations
   validates :player, fightable: true
@@ -19,5 +19,9 @@ class Fight < ActiveRecord::Base
     battle = Battle.new player, opponent
     survivor = battle.run
     self.winner = survivor.id == player.id ? :player : :opponent
+  end
+
+  def winner_character
+    player? ? player : opponent
   end
 end

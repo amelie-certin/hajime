@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Hajime !</h1>
+  <div class="row">
+    <div class="col-sm-10">
+      <%= link_to 'Create a new character', new_character_path, class: 'btn btn-dark' %>
+      <%= link_to 'Armory', armory_index_path, class: 'btn btn-dark' %>
+    </div>
+    <div class="col-sm-10">
+      <a href="#" class="btn btn-dark">vs</a>
+    </div>
+  </div>
+  <% @characters.each do |character| %>
+    <%= image_tag character.avatar.url(:thumb) %>
+  <% end %>
+</div>

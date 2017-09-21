@@ -5,13 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+image_path = 'app/assets/images'
 characters = [
-  { name: 'Grumpy cat', legs: 4, arms: 0 },
-  { name: 'Hooman', legs: 2, arms: 2 },
-  { name: 'Doggo', legs: 4, arms: 0 },
-  { name: 'Nyan cat', legs: 2, arms: 2 },
-  { name: 'Lamasticot', legs: 0, arms: 0 }
+  { name: 'Grumpy cat', legs: 4, arms: 0, avatar: File.open("#{image_path}/Grumpy cat.png") },
+  { name: 'Arthur', legs: 2, arms: 2, avatar: File.open("#{image_path}/Arthur.png") },
+  { name: 'Doggo', legs: 4, arms: 0, avatar: File.open("#{image_path}/Doggo.jpg") },
+  { name: 'Nyan cat', legs: 2, arms: 2, avatar: File.open("#{image_path}/Nyan cat.jpeg") },
+  { name: 'Lamasticot', legs: 0, arms: 0, avatar: File.open("#{image_path}/Lamasticot.jpg") }
 ]
 
 weapons = Weapon.create [

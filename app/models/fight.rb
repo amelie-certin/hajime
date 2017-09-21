@@ -17,8 +17,9 @@ class Fight < ActiveRecord::Base
   # Methods
   def hajime!
     battle = Battle.new player, opponent
-    survivor = battle.run
-    self.winner = survivor.id == player.id ? :player : :opponent
+    battle = battle.run
+    self.winner = battle[:winner].id == player.id ? :player : :opponent
+    self.resume = battle[:resume].join
   end
 
   def winner_character

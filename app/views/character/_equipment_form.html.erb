@@ -1,0 +1,49 @@
+<% @equipment = CharactersWeapon.new %>
+<%= form_for @equipment, url: armory_index_path do |f| %>
+  <% @character.weapons.each do |weapon| %>
+
+    <div class="weapon weapon_<%= weapon.id %>">
+      <!-- Name -->
+      <div class="row">
+        <div class="col-sm-9">
+          <h2><%= weapon.name %></h2>
+        </div>
+        <div class="col-sm-2">
+          <%= link_to 'Remove', unequip_armory_index_path(weapon_id: weapon.id, character_id: @character.id), remote: true, class: 'btn btn-danger unequip_weapon' %>
+        </div>
+      </div>
+
+      <!-- Limbs -->
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.label :arms_required %>
+        </div>
+        <div class="col-sm-2">
+          <%= weapon.arms %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.label :legs_required %>
+        </div>
+        <div class="col-sm-2">
+          <%= weapon.legs %>
+        </div>
+      </div>
+
+      <!-- Focus / Power -->
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.label :focus_required %>
+        </div>
+        <div class="col-sm-2">
+          <%= weapon.focus %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.label :power %>
+        </div>
+        <div class="col-sm-2">
+          <%= weapon.power %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

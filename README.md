@@ -16,8 +16,4 @@ Please install overcommit on your machine to avoid unconventional commits.
 * A character can't hold more weapons than arms.
 * A speed bonus is given to a character for each leg. But he must have enough focus to not fall flat on his face.
 * Focus determines the attack precision.
-* There are three kinds of weapon: hand-to-hand weapons, remote weapons, and area of effect weapons.
-* Hand-to-hand weapon: focus and speed are used to avoid hit backs.
-* Remote weapon: focus is used to not miss the target.
-* AOE weapon: Never miss the target, but can damage the attacker if he's too slow or not focused.
 * The character depresses if he has not enough charisma and let the opponent hurt him.

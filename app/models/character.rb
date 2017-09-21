@@ -6,8 +6,8 @@ class Character < ActiveRecord::Base
   has_many :weapons, through: :characters_weapons
 
   # Validations
-  validate :balanced?
   validates :name, presence: true
+  validates :strength, balancable: true
 
   %i(health defense strength focus speed charisma).each do |stat|
     validates stat, numericality: { greater_than_or_equal_to: 0,
@@ -19,9 +19,12 @@ class Character < ActiveRecord::Base
   end
 
   # Methods
+  def fights
+    Fight.where 'player_id = ? OR opponent_id = ?', id, id
+  end
+
   def balanced?
-    return unless balance > 200 || balance < 175
-    errors.add :balance, I18n.t('character.validate.balance')
+    balance <= 200 && balance >= 175
   end
 
   def balance
@@ -41,5 +44,34 @@ class Character < ActiveRecord::Base
   def free_limbs
     { arms: arms - weapons.map(&:arms).sum,
       legs: legs - weapons.map(&:legs).sum }
+  end
+
+  def limbs
+    arms + legs
+  end
+
+  def ko?
+    health.zero?
+  end
+
+  def hitted(damage)
+    damage = (damage - defense).positive? ? (damage - defense).to_i : 5
+    self.health -= damage < self.health ? damage : self.health
+  end
+
+  def critical_hit
+    punch + 10
+  end
+
+  def punch
+    weapon_power + strength
+  end
+
+  def weapon_power
+    weapons.map(&:power).sum
+  end
+
+  def weapon_focus
+    weapons.map(&:focus).sum
   end
 end

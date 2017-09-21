@@ -33,6 +33,33 @@ RSpec.describe Character do
 
       expect(character).to_not be_valid
     end
+
+    describe 'balancable' do
+      before :each do
+        @error = I18n.t('character.validate.balance')
+      end
+
+      it 'should not be valid for a balance lower than 175' do
+        character = FactoryGirl.build :character, speed: 4  # 172
+        character.valid?
+
+        expect(character.errors[:balance]).to include(@error)
+      end
+
+      it 'should add a validation error for a balance greater than 200' do
+        character = FactoryGirl.build :character, speed: 43 # 211
+        character.valid?
+
+        expect(character.errors[:balance]).to include(@error)
+      end
+
+      it 'should not add a validation error for a balance between 175..200' do
+        character = FactoryGirl.build :character, speed: 22 # 190
+        character.valid?
+
+        expect(character.errors[:balance]).to_not include(@error)
+      end
+    end
   end
 
   describe 'Relations' do
@@ -65,6 +92,18 @@ RSpec.describe Character do
   end
 
   describe 'Methods' do
+    describe '#fights' do
+      it 'should return fights list' do
+        c1 = FactoryGirl.create :character
+        c2 = FactoryGirl.create :character, name: 'Grumpy cat'
+        f1 = FactoryGirl.create :fight, player: c1, opponent: c2
+        f2 = FactoryGirl.create :fight, player: c2, opponent: c1
+
+        expect(c1.fights.map(&:id)).to eq [f1, f2].map(&:id)
+        expect(c2.fights.map(&:id)).to eq [f2, f1].map(&:id)
+      end
+    end
+
     describe '#balance' do
       it 'should calculate the stats sum' do
         c1 = FactoryGirl.build :character, speed:     32 # 200
@@ -80,29 +119,22 @@ RSpec.describe Character do
     end
 
     describe '#balanced?' do
-      before :each do
-        @error = I18n.t('character.validate.balance')
-      end
-
-      it 'should add a validation error for a balance lower than 175' do
+      it 'should return false for a balance lower than 175' do
         character = FactoryGirl.build :character, speed: 4  # 172
-        character.valid?
 
-        expect(character.errors[:balance]).to include(@error)
+        expect(character.balanced?).to be false
       end
 
-      it 'should add a validation error for a balance greater than 200' do
+      it 'should return false for a balance greater than 200' do
         character = FactoryGirl.build :character, speed: 43 # 211
-        character.valid?
 
-        expect(character.errors[:balance]).to include(@error)
+        expect(character.balanced?).to be false
       end
 
-      it 'should not add a validation error for a balance between 175..200' do
+      it 'should return true for a balance between 175..200' do
         character = FactoryGirl.build :character, speed: 22 # 190
-        character.valid?
 
-        expect(character.errors[:balance]).to_not include(@error)
+        expect(character.balanced?).to be true
       end
     end
 

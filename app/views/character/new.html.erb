@@ -1,0 +1,174 @@
+<div class="container">
+  <%= form_for @character, url: character_index_path do |f| %>
+    <div class="row">
+      <div class="col-sm-6">
+
+        <!-- Name -->
+        <div class="row">
+          <div class="col-sm-2">
+            <%= f.label :name %>
+          </div>
+          <div class="col-sm-7">
+            <%= f.text_field :name %>
+          </div>
+          <div class="col-sm-2">
+            <%= link_to 'Random', new_character_path, remote: true, class: 'btn btn-warning' %>
+          </div>
+        </div>
+
+        <!-- Limbs -->
+        <div class="row">
+          <div class="col-sm-2">
+            <%= f.label :arms %>
+          </div>
+          <div class="col-sm-4">
+            <%= f.number_field(:arms, in: 0..100, step: 1) %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.label :legs %>
+          </div>
+          <div class="col-sm-4">
+            <%= f.number_field(:legs, in: 0..100, step: 1) %>
+          </div>
+        </div>
+
+        <!-- Health -->
+        <div class="row">
+          <div class="col-sm-2">
+            Health
+          </div>
+          <div class="col-sm-1" id="health_value" >
+            <%= @character.health %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :health, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <!-- Strength -->
+        <div class="row">
+          <div class="col-sm-2">
+            Strength
+          </div>
+          <div class="col-sm-1" id="strength_value" >
+            <%= @character.strength %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :strength, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <!-- Defense -->
+        <div class="row">
+          <div class="col-sm-2">
+            Defense
+          </div>
+          <div class="col-sm-1" id="defense_value" >
+            <%= @character.defense %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :defense, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <!-- Focus -->
+        <div class="row">
+          <div class="col-sm-2">
+            Focus
+          </div>
+          <div class="col-sm-1" id="focus_value" >
+            <%= @character.focus %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :focus, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <!-- Speed -->
+        <div class="row">
+          <div class="col-sm-2">
+            Speed
+          </div>
+          <div class="col-sm-1" id="speed_value" >
+            <%= @character.speed %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :speed, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <!-- Charisma -->
+        <div class="row">
+          <div class="col-sm-2">
+            Charisma
+          </div>
+          <div class="col-sm-1" id="charisma_value" >
+            <%= @character.charisma %>
+          </div>
+          <div class="col-sm-2 right-align">
+            0
+          </div>
+          <div class="col-sm-5">
+            <%= f.range_field :charisma, in: 0..200 %>
+          </div>
+          <div class="col-sm-2">
+            200
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Total -->
+        <div class="row">
+          <div class="col-sm-2">
+            Total
+          </div>
+          <div class="col-sm-1" id="charisma_value" >
+            <%= @character.balance %>
+          </div>
+          <div class="col-sm-8">
+            The balance of your character must be between 175 and 200.
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="row">
+          <%= f.file_field :avatar %>
+        </div>
+
+        <%= f.submit class: 'btn btn-primary' %>
+
+      </div>
+    </div>
+  <% end %>
+</div>

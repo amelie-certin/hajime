@@ -1,1 +1,1 @@
-$('#fight_result').html('Winner: <%= @fight.winner_character.name %><br><%= @fight.resume.html_safe %>')
+$('#fight_result').html('Winner: <%= @summary.winner.name %><br><%= @summary.logs_as_html.html_safe %>')

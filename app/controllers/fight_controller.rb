@@ -2,7 +2,10 @@
 
 class FightController < ApplicationController
   def create
-    @fight = Fight.create fight_permit_params
+    @summary = Arena::StartBattle.new(
+      Arena::FighterRepository.new,
+      Arena::FightRepository.new
+    ).call(fight_permit_params)
   end
 
   def fight_permit_params

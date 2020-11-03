@@ -10,19 +10,4 @@ class Fight < ActiveRecord::Base
 
   # Validations
   validates :player, fightable: true
-
-  # Callbacks
-  before_create :hajime!
-
-  # Methods
-  def hajime!
-    battle = Battle.new player, opponent
-    battle = battle.run
-    self.winner = battle[:winner].id == player.id ? :player : :opponent
-    self.resume = battle[:resume].join
-  end
-
-  def winner_character
-    player? ? player : opponent
-  end
 end

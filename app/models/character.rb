@@ -24,10 +24,13 @@ class Character < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: %r{image\/.*}
 
   # Methods
+
+# Score Bounded Context
   def fights
     Fight.where 'player_id = ? OR opponent_id = ?', id, id
   end
 
+# Lobby Bounded Context
   def balanced?
     balance <= 200 && balance >= 175
   end
@@ -53,30 +56,5 @@ class Character < ActiveRecord::Base
 
   def limbs
     arms + legs
-  end
-
-  def ko?
-    health.zero?
-  end
-
-  def hitted(damage)
-    damage = (damage - defense).positive? ? (damage - defense).to_i : 5
-    self.health -= damage < self.health ? damage : self.health
-  end
-
-  def critical_hit
-    punch + 10
-  end
-
-  def punch
-    weapon_power + strength
-  end
-
-  def weapon_power
-    weapons.map(&:power).sum
-  end
-
-  def weapon_focus
-    weapons.map(&:focus).sum
   end
 end

@@ -7,10 +7,6 @@ class Battle
     @message = ['<ul>']
   end
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def run
     until fighters_ko?
       if (current.charisma + rand(-20..20)).positive?
@@ -33,10 +29,6 @@ class Battle
     @message << '</ul>'
     { winner: @fighters[0].ko? ? @fighters[1] : @fighters[0], resume: @message }
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
